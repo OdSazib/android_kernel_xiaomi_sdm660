@@ -405,7 +405,7 @@ struct kgsl_context {
 #define pr_context(_d, _c, fmt, args...) \
 		dev_err((_d)->dev, "%s[%d]: " fmt, \
 		_context_comm((_c)), \
-		pid_nr((_c)->proc_priv->pid), ##args)
+		(_c)->proc_priv->pid, ##args)
 
 /**
  * struct kgsl_process_private -  Private structure for a KGSL process (across
@@ -428,7 +428,7 @@ struct kgsl_context {
  */
 struct kgsl_process_private {
 	unsigned long priv;
-	struct pid *pid;
+	pid_t pid;
 	char comm[TASK_COMM_LEN];
 	spinlock_t mem_lock;
 	struct kref refcount;
